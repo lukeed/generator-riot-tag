@@ -51,13 +51,13 @@ module.exports = yeoman.Base.extend({
     }, {
       type: 'confirm',
       name: 'useBower',
-      message: 'Publish to the Bower registry?',
+      message: 'Use Bower? (`bower.json`)',
       default: true,
       store: true
     }, {
       type: 'confirm',
       name: 'useNPM',
-      message: 'Publish to the NPM registry?',
+      message: 'Use NPM? (`package.json`)',
       default: true,
       store: true
     }, {
