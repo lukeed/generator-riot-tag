@@ -112,7 +112,13 @@ module.exports = yeoman.Base.extend({
   },
 
   install: function () {
-    this.installDependencies();
+    if (this.props.useBower) {
+      this.bowerInstall();
+    }
+
+    if (this.props.useNPM) {
+      this.npmInstall();
+    }
   },
 
   end: function () {
@@ -130,5 +136,6 @@ module.exports = yeoman.Base.extend({
           self.async();
         });
       });
+    });
   }
 });
