@@ -30,6 +30,13 @@ module.exports = yeoman.Base.extend({
         return val.trim().length > 0 ? true : 'github username is required';
       }
     }, {
+      name: 'uEmail',
+      message: 'What\'s your email address?',
+      store: true,
+      validate: function (val) {
+        return /^(?:\w+\.?\+?)*\w+@(?:\w+\.)+\w+$/.test(val) ? true : 'invalid email provided';
+      }
+    }, {
       name: 'uWebsite',
       message: 'What\'s your website?',
       store: true,
