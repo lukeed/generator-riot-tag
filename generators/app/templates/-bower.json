@@ -1,0 +1,33 @@
+{
+  "name": "<%= tagName %>",
+  "version": "0.0.0",
+  "description": "<%= tagDesc %>", <% if (!usePublish) { %>
+  "private": true,
+  <% } %>"authors": [
+    "<%= uName %> <<%= uEmail %>>"
+  ],
+  "keywords": [
+    "riot",
+    "riotjs",
+    "riot-tag",
+    "<%= tagName %>"
+  ],
+  "main": "<%= tagName %>.<%= tagExtn %>",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/<%= uGithub %>/<%= tagName %>/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "riot": "^2.3.0"
+  },
+  "devDependencies": {
+  }
+}
