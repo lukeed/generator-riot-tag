@@ -158,11 +158,10 @@ describe('with npm and bower, with colors', function () {
   });
 });
 
-describe('with all options', function () {
+describe('with npm and bower, with colors', function () {
   before(function (done) {
     helpers.run(app).withPrompts(
       assign({}, defs, {
-        useGit: true,
         useNPM: true,
         useBower: true,
         viaColors: 'Bower'
