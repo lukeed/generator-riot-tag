@@ -65,7 +65,19 @@ module.exports = yeoman.Base.extend({
       name: 'useColors',
       message: 'Include Material Design color palette? (SASS)',
       default: true,
-      store: true
+      store: true,
+      when: function (res) {
+        return res.useNPM || res.useBower;
+      }
+    }, {
+      type: 'list',
+      name: 'viaColors',
+      message: 'Install the color palette via...',
+      store: true,
+      choices: ['Bower', 'NPM'],
+      when: function (res) {
+        return res.useColors && res.useNPM && res.useBower;
+      }
     }, {
       name: 'tagName',
       message: 'What\'s the name of your Riot tag?',
@@ -84,6 +96,8 @@ module.exports = yeoman.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.props = props;
+
+      this.props.hasBoth = props.useBower && props.useNPM;
 
       this.props.uWebsite = formatUrl(props.uWebsite);
       this.props.tagName = props.tagName.replace(' ', '-');
