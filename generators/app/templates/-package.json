@@ -20,11 +20,11 @@
   ],
   "scripts": {
     "test": "echo No tests specified.",
-    "build": "riot --ext <%= tagExtn %>",
+    "build": "riot *.<%= tagExtn %> --ext <%= tagExtn %>",
     "major": "npm version major && npm run push",
     "minor": "npm version minor && npm run push",
     "patch": "npm version patch && npm run push",
-    "push": "git push origin master --follow-tags<% if (usePublish) { %> && npm publish <% } %>"
+    "push": "git push origin master --follow-tags<% if (usePublish) { %> && npm publish<% } %>"
   },
   "author": {
     "name": "<%= uName %>",
