@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "<%= tagDesc %>", <% if (!usePublish) { %>
   "private": true,
-  <% } %>"authors": [
+  <% } %>
+  "authors": [
     {"name": "<%= uName %>", "email": "<%= uEmail %>", "homepage": "<%= uWebsite %>"}
   ],
   "keywords": [
