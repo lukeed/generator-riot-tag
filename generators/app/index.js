@@ -183,7 +183,7 @@ module.exports = yeoman.Base.extend({
 
     // if using `md-colors` figure how to install it
     if (p.useColors) {
-      var cmd = p.hasBoth ? getComm(p.viaColors == 'Bower') : getComm(p.useBower);
+      var cmd = p.hasBoth ? getComm(p.viaColors === 'Bower') : getComm(p.useBower);
       this[cmd](['md-colors'], {save: true});
     }
   },
