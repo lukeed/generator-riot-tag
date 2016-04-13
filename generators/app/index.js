@@ -163,7 +163,7 @@ module.exports = yeoman.Base.extend({
 
     // create the tag file
     var file = [p.tagName, p.tagExtn].join('.');
-    var src = ['base-tag', t.tabType].join('.');
+    var src = ['base-tag', p.tabType].join('.');
     self.template(src, file, p);
   },
 
