@@ -4,7 +4,7 @@
   "description": "<%= tagDesc %>", <% if (!usePublish) { %>
   "private": true,
   <% } %>"authors": [
-    "<%= uName %> <<%= uEmail %>>"
+    {"name": "<%= uName %>", "email": "<%= uEmail %>", "homepage": "<%= uWebsite %>"}
   ],
   "keywords": [
     "riot",
