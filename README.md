@@ -1,5 +1,5 @@
 # generator-riot-tag [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Quickly generate installable Riot tags
+> Quickly generate reusable Riot tag components
 
 ## Installation
 
@@ -12,16 +12,12 @@ npm install -g generator-riot-tag
 
 Then generate your new project:
 
+> **Note:** Yeoman will write files to the current directory!
+
 ```bash
+mkdir my-new-tag && cd $_
 yo riot-tag
 ```
-
-## Getting To Know Yeoman
-
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
 
 ## License
 

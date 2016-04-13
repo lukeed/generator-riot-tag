@@ -1,7 +1,7 @@
 {
   "name": "generator-riot-tag",
   "version": "0.0.0",
-  "description": "Quickly generate installable Riot tags",
+  "description": "Quickly generate reusable Riot tag components",
   "homepage": "",
   "author": {
     "name": "Luke Edwards",
