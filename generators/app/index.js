@@ -1,6 +1,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var formatUrl = require('normalize-url');
+var base = require('path').basename;
 var chalk = require('chalk');
 var yosay = require('yosay');
 
@@ -63,9 +64,7 @@ module.exports = yeoman.Base.extend({
       name: 'tagName',
       message: 'What\'s the name of your Riot tag?',
       store: true,
-      default: function(props) {
-        return 'my-tag';
-      },
+      default: base(process.cwd()),
       validate: function(val) {
         return val.trim().length > 0 ? true : 'tag name is required';
       }
