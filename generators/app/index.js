@@ -50,14 +50,20 @@ module.exports = yeoman.Base.extend({
       store: true
     }, {
       type: 'confirm',
-      name: 'useColors',
-      message: 'Include Material Design color palette? (SASS)',
+      name: 'useBower',
+      message: 'Publish to the Bower registry?',
       default: true,
       store: true
     }, {
       type: 'confirm',
-      name: 'useBower',
-      message: 'Publish to the Bower registry?',
+      name: 'useNPM',
+      message: 'Publish to the NPM registry?',
+      default: true,
+      store: true
+    }, {
+      type: 'confirm',
+      name: 'useColors',
+      message: 'Include Material Design color palette? (SASS)',
       default: true,
       store: true
     }, {
@@ -87,10 +93,22 @@ module.exports = yeoman.Base.extend({
   },
 
   writing: function () {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
-    );
+    var self = this;
+
+    var statics = ['_editorconfig', '_gitignore'];
+
+    if (self.props.useBower) {
+      statics.push('-bower.json');
+    }
+
+    if (self.props.useNPM) {
+      statics.push('-package.json');
+    }
+
+    statics.forEach(function (src) {
+      var dest = src.replace('_', '.').replace('-', '');
+      self.template(src, dest, self.props);
+    });
   },
 
   install: function () {
