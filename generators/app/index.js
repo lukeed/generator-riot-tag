@@ -175,7 +175,7 @@ module.exports = yeoman.Base.extend({
     }
 
     if (p.useNPM) {
-      this.npmInstall();
+      this.npmInstall(['riot']); // no save
     }
 
     function getComm(isBower) {
