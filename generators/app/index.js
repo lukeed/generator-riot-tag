@@ -6,6 +6,9 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 
 module.exports = yeoman.Base.extend({
+  // initializing: function () {
+  //   this.composeWith('riot-tag:new');
+  // },
 
   prompting: function () {
     var done = this.async();
@@ -44,6 +47,12 @@ module.exports = yeoman.Base.extend({
         return 'https://github.com/' + props.uGithub;
       }
     }, {
+      type: 'confirm',
+      name: 'useGit',
+      message: 'Initialize a Git repository?',
+      store: true,
+      default: true
+    }, {
       type: 'list',
       name: 'tabType',
       message: 'Do you use tabs or spaces?',
@@ -65,6 +74,12 @@ module.exports = yeoman.Base.extend({
       type: 'confirm',
       name: 'useNPM',
       message: 'Use NPM? (`package.json`)',
+      default: true,
+      store: true
+    }, {
+      type: 'confirm',
+      name: 'usePublish',
+      message: 'Publish to NPM and/or Bower?',
       default: true,
       store: true
     }, {
@@ -94,20 +109,33 @@ module.exports = yeoman.Base.extend({
         return val.trim().length > 0 ? true : 'tag name is required';
       }
     }, {
-      type: 'confirm',
-      name: 'useGit',
-      message: 'Initialize a Git repository?',
+      name: 'tagDesc',
+      message: 'Please describe your tag\'s purpose.',
       store: true,
-      default: true
+      default: function (props) {
+        return props.tagName + ' does an awesome thing!';
+      },
+      validate: function (val) {
+        return val.trim().length > 0 ? true : 'tag name is required';
+      }
+    }, {
+      name: 'tagExtn',
+      message: 'What should be the file extension?',
+      store: true,
+      default: '.tag',
+      validate: function (val) {
+        return val.trim().length > 0 ? true : 'extension is required';
+      }
     }];
 
     this.prompt(prompts, function (props) {
       this.props = props;
 
       this.props.hasBoth = props.useBower && props.useNPM;
-
       this.props.uWebsite = formatUrl(props.uWebsite);
+
       this.props.tagName = props.tagName.replace(' ', '-');
+      this.props.tagExtn = props.tagExtn.replace('.', '');
 
       done();
     }.bind(this));
@@ -115,30 +143,48 @@ module.exports = yeoman.Base.extend({
 
   writing: function () {
     var self = this;
+    var p = self.props;
 
     var statics = ['_editorconfig', '_gitignore'];
 
-    if (self.props.useBower) {
+    if (p.useBower) {
       statics.push('-bower.json');
     }
 
-    if (self.props.useNPM) {
+    if (p.useNPM) {
       statics.push('-package.json');
     }
 
+    // copy over all statics
     statics.forEach(function (src) {
       var dest = src.replace('_', '.').replace('-', '');
-      self.template(src, dest, self.props);
+      self.template(src, dest, p);
     });
+
+    // create the tag file
+    var file = [p.tagName, p.tagExtn].join('.');
+    self.template('base-tag', file, p);
   },
 
   install: function () {
-    if (this.props.useBower) {
+    var p = this.props;
+
+    if (p.useBower) {
       this.bowerInstall();
     }
 
-    if (this.props.useNPM) {
+    if (p.useNPM) {
       this.npmInstall();
+    }
+
+    function getComm(isBower) {
+      return isBower ? 'bowerInstall' : 'npmInstall';
+    }
+
+    // if using `md-colors` figure how to install it
+    if (p.useColors) {
+      var cmd = p.hasBoth ? getComm(p.viaColors == 'Bower') : getComm(p.useBower);
+      this[cmd](['md-colors'], {save: true});
     }
   },
 
