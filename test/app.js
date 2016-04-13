@@ -27,9 +27,8 @@ var expect = ['.editorconfig', '.gitignore', 'hello-world.tag'];
 
 describe('with bower only, no colors', function () {
   before(function (done) {
-    helpers.run(app).withPrompts(
-      assign({}, defs, {useBower: true})
-    ).on('end', done);
+    var opts = assign({}, defs, {useBower: true});
+    helpers.run(app).withPrompts(opts).on('end', done);
   });
 
   it('creates all files: ', function () {
@@ -47,12 +46,11 @@ describe('with bower only, no colors', function () {
 
 describe('with bower only, with colors', function () {
   before(function (done) {
-    helpers.run(app).withPrompts(
-      assign({}, defs, {
-        useBower: true,
-        useColors: true
-      })
-    ).on('end', done);
+    var opts = assign({}, defs, {
+      useBower: true,
+      useColors: true
+    });
+    helpers.run(app).withPrompts(opts).on('end', done);
   });
 
   it('creates all files: ', function () {
@@ -70,9 +68,8 @@ describe('with bower only, with colors', function () {
 
 describe('with npm only, no colors', function () {
   before(function (done) {
-    helpers.run(app).withPrompts(
-      assign({}, defs, {useNPM: true})
-    ).on('end', done);
+    var opts = assign({}, defs, {useNPM: true});
+    helpers.run(app).withPrompts(opts).on('end', done);
   });
 
   it('creates all files: ', function () {
@@ -90,12 +87,11 @@ describe('with npm only, no colors', function () {
 
 describe('with npm only, with colors', function () {
   before(function (done) {
-    helpers.run(app).withPrompts(
-      assign({}, defs, {
-        useNPM: true,
-        useColors: true
-      })
-    ).on('end', done);
+    var opts = assign({}, defs, {
+      useNPM: true,
+      useColors: true
+    });
+    helpers.run(app).withPrompts(opts).on('end', done);
   });
 
   it('creates all files: ', function () {
@@ -108,6 +104,28 @@ describe('with npm only, with colors', function () {
 
   it('does not create `bower.json`', function () {
     assert.noFile('bower.json');
+  });
+});
+
+describe('with npm and bower, no colors', function () {
+  before(function (done) {
+    var opts = assign({}, defs, {
+      useNPM: true,
+      useBower: true
+    });
+    helpers.run(app).withPrompts(opts).on('end', done);
+  });
+
+  it('creates all files: ', function () {
+    assert.file(expect);
+  });
+
+  it('creates `package.json`: ', function () {
+    assert.file('package.json');
+  });
+
+  it('creates `bower.json`', function () {
+    assert.file('bower.json');
   });
 });
 
@@ -140,30 +158,7 @@ describe('with npm and bower, with colors', function () {
       assign({}, defs, {
         useNPM: true,
         useBower: true,
-        useColors: true
-      })
-    ).on('end', done);
-  });
-
-  it('creates all files: ', function () {
-    assert.file(expect);
-  });
-
-  it('creates `package.json`: ', function () {
-    assert.file('package.json');
-  });
-
-  it('creates `bower.json`', function () {
-    assert.file('bower.json');
-  });
-});
-
-describe('with npm and bower, with colors', function () {
-  before(function (done) {
-    helpers.run(app).withPrompts(
-      assign({}, defs, {
-        useNPM: true,
-        useBower: true,
+        useColors: true,
         viaColors: 'Bower'
       })
     ).on('end', done);
