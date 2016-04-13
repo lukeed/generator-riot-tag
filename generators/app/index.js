@@ -19,21 +19,21 @@ module.exports = yeoman.Base.extend({
       name: 'uName',
       message: 'What\'s your name?',
       store: true,
-      validate: function(val) {
+      validate: function (val) {
         return val.trim().length > 0 ? true : 'name is required';
       }
     }, {
       name: 'uGithub',
       message: 'What\'s your GitHub username?',
       store: true,
-      validate: function(val) {
+      validate: function (val) {
         return val.trim().length > 0 ? true : 'github username is required';
       }
     }, {
       name: 'uWebsite',
       message: 'What\'s your website?',
       store: true,
-      default: function(props) {
+      default: function (props) {
         return 'https://github.com/' + props.uGithub;
       }
     }, {
@@ -71,12 +71,12 @@ module.exports = yeoman.Base.extend({
       message: 'What\'s the name of your Riot tag?',
       store: true,
       default: base(process.cwd()),
-      validate: function(val) {
+      validate: function (val) {
         return val.trim().length > 0 ? true : 'tag name is required';
       }
     }, {
       type: 'confirm',
-      name: 'gitinit',
+      name: 'useGit',
       message: 'Initialize a Git repository?',
       store: true,
       default: true
@@ -113,5 +113,22 @@ module.exports = yeoman.Base.extend({
 
   install: function () {
     this.installDependencies();
+  },
+
+  end: function () {
+    var self = this;
+
+    if (!self.props.useGit) {
+      return;
+    }
+
+    console.log('\n');
+    self.spawnCommand('git', ['init']).on('close', function () {
+      self.spawnCommand('git', ['add', '--all']).on('close', function () {
+        self.spawnCommand('git', ['commit', '-m', 'first commit, via generator-riot-tag']).on('close', function () {
+          console.log('\n');
+          self.async();
+        });
+      });
   }
 });
