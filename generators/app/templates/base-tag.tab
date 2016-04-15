@@ -1,24 +1,19 @@
 <<%= tagName %>>
-  <p onclick="{ onClick }">Hallo hallo!</p>
+	<p onclick="{ onClick }">Hallo hallo!</p>
 
-  <script>
-    console.log('before `mount` event: ', this.root);
+	<script>
+		console.log('before `mount` event: ', this.root);
 
-    onClick(e) {
-      alert('clicked!');
-    }
+		onClick(e) {
+			alert('clicked!');
+		}
 
-    this.on('mount', function () {
-      console.log('mounted');
-    }.bind(this));
-  </script>
+		this.on('mount', function () {
+			console.log('mounted');
+		}.bind(this));
+	</script>
 
-  <style scoped>
-    /* declare SCSS variables! */
-    $text-color : #003366;
-
-    :scope {
-      p { color: $text-color; }
-    }
-  </style>
+	<style scoped>
+		@import "<%= tagName %>.sass";
+	</style>
 </<%= tagName %>>

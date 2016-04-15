@@ -1,0 +1,6 @@
+<% if (useColors && viaColors === 'NPM') { %>@import "node_modules/md-colors/src/md-colors"<% } else if (useColors && viaColors === 'Bower') { %>@import "bower_components/md-colors/src/md-colors"<% } %>
+
+$text-color : <% if (useColors) { %>md-color('blue', '500')<% } else { %>#003366<% } %>
+
+:scope p
+  color: $text-color

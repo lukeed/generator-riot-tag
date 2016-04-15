@@ -148,10 +148,16 @@ module.exports = yeoman.Base.extend({
     var statics = ['_editorconfig', '_gitignore'];
 
     if (p.useBower) {
+      if (!p.hasBoth) {
+        p.viaColors = 'Bower';
+      }
       statics.push('-bower.json');
     }
 
     if (p.useNPM) {
+      if (!p.hasBoth) {
+        p.viaColors = 'NPM';
+      }
       statics.push('-package.json');
     }
 
@@ -165,6 +171,10 @@ module.exports = yeoman.Base.extend({
     var file = [p.tagName, p.tagExtn].join('.');
     var src = ['base-tag', p.tabType].join('.');
     self.template(src, file, p);
+
+    // copy the styles file
+    var sty = [p.tagName, 'sass'].join('.');
+    self.template('tag-styles.sass', sty, p);
   },
 
   install: function () {

@@ -23,7 +23,7 @@ var defs = {
   useColors: false
 };
 
-var expect = ['.editorconfig', '.gitignore', 'hello-world.tag'];
+var expect = ['.editorconfig', '.gitignore', 'hello-world.tag', 'hello-world.sass'];
 
 describe('with bower only, no colors', function () {
   before(function (done) {
